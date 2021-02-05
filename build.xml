@@ -1,0 +1,29 @@
+<project name="CadetEscape" default="jarfile">
+
+    <!-- Comment -->
+    <target name="init">
+        <property name="src.dir" value="src"/>
+        <property name="main.class" value="org.academiadecodigo.weirddos.Main"/>
+    </target>
+
+    <target name="prepare" description="Creates the build/classes directories" depends="init">
+        <mkdir dir="build/classes"/>
+    </target>
+
+    <target name="compile" depends="prepare" description="Compiles the source code">
+        <javac srcdir="${src.dir}" destdir="build/classes"/>
+    </target>
+
+    <target name="jarfile" depends="compile" description="Creates the jar file">
+        <jar destfile="build/CadetEscape.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean" description="Deletes the build folder">
+        <delete dir="build"/>
+    </target>
+
+</project>
