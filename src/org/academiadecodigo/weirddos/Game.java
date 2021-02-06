@@ -13,6 +13,7 @@ public class Game {
     private int highestScore;
     private AudioLibrary audioLibrary;
     private Points score;
+    class
 
 
     // Constructor

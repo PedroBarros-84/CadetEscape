@@ -6,23 +6,19 @@ public class Points {
 
     private int score;
     private Picture[] scoreArray;
-    //private Picture[] digitsLibrary;
 
     // Constructor
     public Points() {
         score = 0;
         scoreArray = new Picture[6];
-
         scoreArray[0] = new Picture(20, 560,"resources/nums/0.png");
         for (int i = 1; i < scoreArray.length; i++) {
             scoreArray[i] = new Picture(scoreArray[i-1].getX() + scoreArray[i-1].getWidth() + 10, 560,"resources/nums/0.png");
         }
-
     }
 
     // Getters & Setters
-    public void setScore() { score += 17; }
-
+    public void setScore() { score += 0; }
 
     public void showScore() {
         //System.out.println(score);
@@ -53,7 +49,6 @@ public class Points {
                 case '8' -> scoreArray[j] = new Picture(previousX, previousY, "resources/nums/8.png");
                 case '9' -> scoreArray[j] = new Picture(previousX, previousY, "resources/nums/9.png");
             }
-
         }
     }
 
