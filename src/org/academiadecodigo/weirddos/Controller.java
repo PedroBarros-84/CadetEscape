@@ -55,12 +55,15 @@ public class Controller implements KeyboardHandler{
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
-            try { if (!game.isPaused()) { codeCadet.moveRight(); } }
-            catch(InterruptedException e) { e.printStackTrace(); }
+            try { if (!game.isPaused() && !game.getRandomizerTime()) { codeCadet.moveRight(); }
+                  if (!game.isPaused() && game.getRandomizerTime()) { codeCadet.moveLeft(); } }
+            catch(InterruptedException e) {
+                e.printStackTrace(); }
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
-            try { if (!game.isPaused()) { codeCadet.moveLeft(); } }
+            try { if (!game.isPaused() && !game.getRandomizerTime()) { codeCadet.moveLeft(); }
+                  if (!game.isPaused() && game.getRandomizerTime()) { codeCadet.moveRight(); } }
             catch(InterruptedException e) { e.printStackTrace(); }
         }
 

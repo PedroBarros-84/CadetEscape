@@ -45,6 +45,7 @@ public class Game {
     public void setStart()  { gameHasStarted = true; }
     public void setPause()  { gameIsPaused = !gameIsPaused; }
     public void setQuit()   { quitGame = true; }
+    public boolean getRandomizerTime() { return randomizerTime; }
 
     public void setRandomizerTime() { randomizerTime = !randomizerTime;}
 
@@ -103,15 +104,10 @@ public class Game {
 
         // Reset the game to start menu
         codeCadet.resetPosition();
-
         score.resetScore();
-
         lives.resetNumOfLives();
-
         Thread.sleep(7000);
-
         field.clearField();
-
         gameHasStarted = false;
 
         init();
