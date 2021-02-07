@@ -5,16 +5,17 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class CodeCadet {
 
     private Picture picture;
+    private Lives lives;
 
     // Constructor
-    public CodeCadet() {
-        picture = new Picture(350, 325, "resources/codeCadet.png");
+    public CodeCadet(Lives lives) {
+        picture = new Picture(350, 330, "resources/codeCadet.png");
+        this.lives = lives;
     }
 
     // Getters & Setters
-    public Picture getPicture() {
-        return picture;
-    }
+    public Picture getPicture() { return picture;    }
+    public void    looseLife()  { lives.looseLife(); }
 
 
     public void moveRight() throws InterruptedException {

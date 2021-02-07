@@ -20,12 +20,12 @@ public class Game {
     // Constructor
     public Game() {
 
-        codeCadet = new CodeCadet();
+        lives = new Lives();
+        codeCadet = new CodeCadet(lives);
         field = new Field();
         field.drawField();
         score = new Score();
-        lives = new Lives();
-        controller = new Controller(codeCadet, this, lives);
+        controller = new Controller(codeCadet, this);
         summarizers = new CollisionDetector(codeCadet);
 
         gameHasStarted = false;

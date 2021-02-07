@@ -37,4 +37,15 @@ public class Summarizer {
         summarizer.translate(randomX - summarizer.getX(), randomY);
     }
 
+    // Getters for X and Y coordinates right Vertex
+    public int rightVertex_X() { return summarizer.getX() + summarizer.getWidth(); }
+    public int rightVertex_Y() { return summarizer.getY() + 33;                    }
+
+    // Getters for X and Y coordinates left Vertex
+    public int leftVertex_X() { return summarizer.getX();      }
+    public int leftVertex_Y() { return summarizer.getY() + 19; }
+
+    // Getters for X and Y coordinates bottom Vertex
+    public int bottomVertex_X() { return summarizer.getX() + 27;                     }
+    public int bottomVertex_Y() { return summarizer.getY() + summarizer.getHeight(); }
 }

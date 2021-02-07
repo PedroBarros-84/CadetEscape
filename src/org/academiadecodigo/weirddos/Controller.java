@@ -12,7 +12,7 @@ public class Controller implements KeyboardHandler{
 
 
     // Constructor
-    public Controller(CodeCadet codeCadet, Game game, Lives lives) {
+    public Controller(CodeCadet codeCadet, Game game) {
         keyboard = new Keyboard(this);
         this.codeCadet = codeCadet;
         this.game = game;
@@ -71,7 +71,7 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-            lives.looseLife();
+
 
         }
 
