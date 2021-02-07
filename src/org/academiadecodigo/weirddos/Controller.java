@@ -1,7 +1,6 @@
 package org.academiadecodigo.weirddos;
 
 import org.academiadecodigo.simplegraphics.keyboard.*;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Controller implements KeyboardHandler{
 
@@ -9,12 +8,16 @@ public class Controller implements KeyboardHandler{
     private CodeCadet codeCadet;
     private Game game;
 
+    private Lives lives;
+
 
     // Constructor
-    public Controller(CodeCadet codeCadet, Game game) {
+    public Controller(CodeCadet codeCadet, Game game, Lives lives) {
         keyboard = new Keyboard(this);
         this.codeCadet = codeCadet;
         this.game = game;
+
+        this.lives = lives;
     }
 
 
@@ -53,9 +56,33 @@ public class Controller implements KeyboardHandler{
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) { codeCadet.moveLeft();  }
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT)  { codeCadet.moveRight(); }
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) { game.start();          }
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
+            try { if (!game.isPaused()) { codeCadet.moveRight(); } }
+            catch(InterruptedException e) { e.printStackTrace(); }
+        }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
+            try { if (!game.isPaused()) { codeCadet.moveLeft(); } }
+            catch(InterruptedException e) { e.printStackTrace(); }
+        }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
+            game.setStart();
+        }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
+            lives.looseLife();
+
+        }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {
+            game.setPause();
+        }
+
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_Q) {
+            game.setQuit();
+        }
+
     }
 
 
