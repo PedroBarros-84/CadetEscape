@@ -7,7 +7,6 @@ public class Controller implements KeyboardHandler{
     private Keyboard keyboard;
     private CodeCadet codeCadet;
     private Game game;
-
     private Lives lives;
 
 
@@ -16,7 +15,6 @@ public class Controller implements KeyboardHandler{
         keyboard = new Keyboard(this);
         this.codeCadet = codeCadet;
         this.game = game;
-
         this.lives = lives;
     }
 
@@ -81,6 +79,7 @@ public class Controller implements KeyboardHandler{
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_Q) {
             game.setQuit();
+            lives.setStillHaveLives(false);
         }
 
     }

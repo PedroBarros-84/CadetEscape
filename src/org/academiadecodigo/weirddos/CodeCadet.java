@@ -9,13 +9,14 @@ public class CodeCadet {
 
     // Constructor
     public CodeCadet(Lives lives) {
-        picture = new Picture(350, 330, "resources/codeCadet.png");
+        picture = new Picture(350, 340, "resources/codeCadet.png");
         this.lives = lives;
     }
 
     // Getters & Setters
     public Picture getPicture() { return picture;    }
     public void    looseLife()  { lives.looseLife(); }
+    public void    resetPosition() { picture.translate(350 - picture.getX(), 0); }
 
 
     public void moveRight() throws InterruptedException {

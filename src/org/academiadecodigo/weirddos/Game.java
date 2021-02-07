@@ -1,6 +1,9 @@
 package org.academiadecodigo.weirddos;
 
 
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
+import org.academiadecodigo.simplegraphics.graphics.Shape;
+
 public class Game {
 
 
@@ -26,7 +29,7 @@ public class Game {
         field.drawField();
         score = new Score();
         controller = new Controller(codeCadet, this);
-        summarizers = new CollisionDetector(codeCadet);
+        controller.init();
 
         gameHasStarted = false;
         gameIsPaused = false;
@@ -44,11 +47,15 @@ public class Game {
 
     // Prompts main menu
     public void init() throws InterruptedException {
+
         field.drawMenu();
-        controller.init();
+
         while(!gameHasStarted) {
+            Thread.sleep(100);
         }
+
         start();
+
     }
 
 
@@ -59,6 +66,7 @@ public class Game {
         codeCadet.getPicture().draw();
         score.showScore();
         lives.showPostIts();
+        summarizers = new CollisionDetector(codeCadet);
 
         do {
             while (gameIsPaused) {
@@ -71,9 +79,28 @@ public class Game {
 
             //field.getCanvasElements();
 
-        } while (!quitGame);
+        } while (lives.stillHaveLives());
 
-        System.exit(0);
+        if (quitGame) {
+            System.exit(0);
+        }
+
+        field.drawGameOver();
+
+        // Reset the game to start menu
+        codeCadet.resetPosition();
+
+        score.resetScore();
+
+        lives.resetNumOfLives();
+
+        Thread.sleep(7000);
+
+        field.clearField();
+
+        gameHasStarted = false;
+
+        init();
 
     }
 

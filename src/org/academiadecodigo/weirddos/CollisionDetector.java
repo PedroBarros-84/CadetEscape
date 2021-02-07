@@ -34,7 +34,7 @@ public class CollisionDetector {
             } else if (s.getY() + s.getHeight() >= FLOOR_LEVEL) {
 
                 s.resetPosition();
-                score.setScore();
+                score.upScore();
                 score.updateScore();
                 score.showScore();
             }
@@ -61,7 +61,5 @@ public class CollisionDetector {
 
         return false;
     }
-
-
 
 }

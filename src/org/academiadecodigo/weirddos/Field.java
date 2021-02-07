@@ -8,6 +8,7 @@ public class Field {
     private Picture field;
     private Picture menu;
     private Picture game;
+    private Picture gameOver;
 
 
     // Constructor
@@ -15,6 +16,7 @@ public class Field {
         field = new Picture(0,0, "resources/field.png");
         menu = new Picture(0,0,"resources/cadetEscapeBackgroundMenu.png");
         game = new Picture(0,0, "resources/cadetEscapeBackgroundGame.png");
+        gameOver = new Picture(0,0,"resources/gameOver.png");
     }
 
     public void drawField() {
@@ -23,6 +25,8 @@ public class Field {
     }
 
     public void drawMenu() {
+        game.delete();
+        gameOver.delete();
         menu.draw();
         getCanvasElements();
     }
@@ -33,6 +37,19 @@ public class Field {
         getCanvasElements();
     }
 
+    public void drawGameOver() {
+
+        gameOver.draw();
+        getCanvasElements();
+    }
+
+    public void clearField() {
+        Shape[] shapes = Canvas.getInstance().getShapes().toArray(new Shape[0]);
+        for (int i = 1; i < shapes.length; i++) {
+            shapes[i].delete();
+        }
+        getCanvasElements();
+    }
 
 
     public void getCanvasElements() {

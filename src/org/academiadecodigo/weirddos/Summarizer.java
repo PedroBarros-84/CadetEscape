@@ -33,7 +33,7 @@ public class Summarizer {
     // Brings summarizer to random position above the canvas after hitting ground
     public void resetPosition() {
         int randomX = (int)(Math.random() * (790 - 60));
-        int randomY = (int)((Math.random() * (-1000)) - 55 - 542); // Summarizer descended into 542 position
+        int randomY = (int)((Math.random() * (-1000)) - 55 - 542); // Summarizer descended into 542 position, due to status bar collision
         summarizer.translate(randomX - summarizer.getX(), randomY);
     }
 

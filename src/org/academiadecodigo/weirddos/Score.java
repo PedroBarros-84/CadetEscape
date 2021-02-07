@@ -18,11 +18,26 @@ public class Score {
     }
 
     // Getters & Setters
-    public void setScore() { score += 10; }
+    public void upScore() { score += 10; }
+    public void resetScore() { score = 0; resetScoreDisplay(); }
+
+
+    public void resetScoreDisplay() {
+        for (int i = 0; i < scoreArray.length; i++) {
+            scoreArray[i] = new Picture(scoreArray[i].getX(), scoreArray[i].getY(), "resources/nums/0.png");
+        }
+    }
+
 
     public void showScore() {
         for (Picture picture : scoreArray) {
             picture.draw();
+        }
+    }
+
+    public void hideScore() {
+        for (Picture picture : scoreArray) {
+            picture.delete();
         }
     }
 
