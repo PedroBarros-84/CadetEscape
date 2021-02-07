@@ -1,15 +1,11 @@
 package org.academiadecodigo.weirddos;
 
-import javax.print.attribute.standard.Media;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.*;
+
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
 

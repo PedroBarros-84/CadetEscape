@@ -11,7 +11,7 @@ public class Controller implements KeyboardHandler{
 
 
     // Constructor
-    public Controller(CodeCadet codeCadet, Game game) {
+    public Controller(CodeCadet codeCadet, Game game, Lives lives) {
         keyboard = new Keyboard(this);
         this.codeCadet = codeCadet;
         this.game = game;
@@ -69,8 +69,7 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-
-
+            game.setRandomizerTime();  // <<<<--------------------------------------------
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {

@@ -18,6 +18,7 @@ public class Score {
     }
 
     // Getters & Setters
+    public int getScore() { return score; }
     public void upScore() { score += 10; }
     public void resetScore() { score = 0; resetScoreDisplay(); }
 
