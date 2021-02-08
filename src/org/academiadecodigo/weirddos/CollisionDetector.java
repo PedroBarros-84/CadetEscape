@@ -4,8 +4,8 @@ import org.academiadecodigo.simplegraphics.graphics.Canvas;
 
 public class CollisionDetector {
 
-    private Summarizer[] summarizersArray;
-    private CodeCadet codeCadet;
+    private final Summarizer[] summarizersArray;
+    private final CodeCadet codeCadet;
     private final int TOTAL_SUMMARIZERS = 10;
     private final int FLOOR_LEVEL = 615 - 73; // Background height minus status bar height
 
@@ -18,8 +18,6 @@ public class CollisionDetector {
         }
         this.codeCadet = codeCadet;
     }
-
-    // Getters & Setters
 
 
     // Method checks if any summarizer hit the ground, if so, increases score
@@ -48,6 +46,7 @@ public class CollisionDetector {
 
 
     public boolean checkForCollision(Summarizer s) {
+
         int cadetRightSide = codeCadet.getPicture().getX() + codeCadet.getPicture().getWidth();
         int cadetLeftSide = codeCadet.getPicture().getX();
         int cadetTop_Y = codeCadet.getPicture().getY();
@@ -60,6 +59,13 @@ public class CollisionDetector {
         }
 
         return false;
+    }
+
+
+    public void resetAllSummarizers() {
+        for (Summarizer s : summarizersArray) {
+                s.resetPosition();
+        }
     }
 
 }

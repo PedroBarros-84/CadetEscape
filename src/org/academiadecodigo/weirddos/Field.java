@@ -5,12 +5,12 @@ import org.academiadecodigo.simplegraphics.pictures.*;
 
 public class Field {
 
-    private Picture field;
-    private Picture menu;
-    private Picture game;
-    private Picture randomizerAlert;
-    private Picture randomizer;
-    private Picture gameOver;
+    private final Picture field;
+    private final Picture menu;
+    private final Picture game;
+    private final Picture randomizerAlert;
+    private final Picture randomizer;
+    private final Picture gameOver;
 
 
 

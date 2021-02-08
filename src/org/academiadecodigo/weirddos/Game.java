@@ -1,9 +1,6 @@
 package org.academiadecodigo.weirddos;
 
 
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
-import org.academiadecodigo.simplegraphics.graphics.Shape;
-
 public class Game {
 
 
@@ -17,9 +14,12 @@ public class Game {
 
     private volatile boolean gameHasStarted;
     private boolean gameIsPaused;
-    private boolean quitGame;
+    private boolean randomizerAlertTime;
     private boolean randomizerTime;
-    private int randomizerAlertCounter = 0;
+    private int randomizerAlertCounter;
+    private int randomizerCounter;
+    private int delay;
+    private int gameCycleCounter;
 
 
     // Constructor
@@ -30,129 +30,158 @@ public class Game {
         field = new Field();
         field.drawField();
         score = new Score();
+        summarizers = new CollisionDetector(codeCadet);
         controller = new Controller(codeCadet, this, lives);
         controller.init();
 
+        delay = 50;
+        gameCycleCounter = 1;
+        randomizerAlertCounter = 0;
+        randomizerCounter = 0;
         gameHasStarted = false;
+        randomizerAlertTime = false;
         randomizerTime = false;
         gameIsPaused = false;
-        quitGame = false;
 
     }
+
 
     // Getters & Setters
     public boolean isPaused() { return gameIsPaused; }
     public void setStart()  { gameHasStarted = true; }
     public void setPause()  { gameIsPaused = !gameIsPaused; }
-    public void setQuit()   { quitGame = true; }
     public boolean getRandomizerTime() { return randomizerTime; }
-
-    public void setRandomizerTime() { randomizerTime = !randomizerTime;}
-
+    public void setRandomizerAlertTime() {randomizerAlertTime = !randomizerAlertTime; }
 
 
     // Prompts main menu
     public void init() throws InterruptedException {
 
+        // Print main menu
         field.drawMenu();
 
-        if (quitGame) {
-            System.exit(0);
-        }
-
+        // Wait for user to press SPACE key
         while(!gameHasStarted) {
             Thread.sleep(100);
         }
 
+        // Begin game
         start();
 
     }
 
 
-    // Starts playable game
+    // Start game
     public void start() throws InterruptedException {
 
+        // Print all game components on screen
         field.drawGame();
         codeCadet.getPicture().draw();
         score.showScore();
-        lives.showPostIts();
-        summarizers = new CollisionDetector(codeCadet);
+        lives.showAllPostIts();
+        summarizers.resetAllSummarizers();
 
         do {
+            // Keep game paused if necessary
             while (gameIsPaused) {
                 Thread.sleep(100);
             }
 
-            Thread.sleep(50);
+            // Create delay for animation
+            Thread.sleep(delay);
 
-            summarizers.rainAll(score);
+            // Every 250 cycles, summarizers rain faster
+            if (gameCycleCounter % 200 == 0 && delay > 25) { delay--; }
 
-            if (randomizerTime) {
-                randomizerAlert();
-                //randomizer();
+            // Create 0.2% chance for randomizer during standard game mode
+            if (!randomizerAlertTime && !randomizerTime) {
+                double chance = Math.random() * 100;
+                if (chance < 0.2) { randomizerAlertTime = true; }
             }
 
-            field.getCanvasElements();
+            // Prompt blinking alert before randomizer
+            if (randomizerAlertTime) { randomizerAlert(); }
+
+            // Switch to randomizer mode
+            if (randomizerTime) { randomizer(); }
+
+            //System.out.println(gameCycleCounter + "   " + delay);
+
+            // Move all summarizer down once
+            summarizers.rainAll(score);
+
+            gameCycleCounter++;
+            //field.getCanvasElements();
 
         } while (lives.stillHaveLives());
 
-        if (quitGame) {
-            System.exit(0);
-        }
+        gameOver();
+    }
 
+
+    public void gameOver() throws InterruptedException {
+
+        // After game ends show game over
         field.drawGameOver();
 
-        // Reset the game to start menu
+        // Reset the game, and go back to start menu
         codeCadet.resetPosition();
         score.resetScore();
         lives.resetNumOfLives();
         Thread.sleep(7000);
         field.clearField();
+        delay = 50;
+        gameCycleCounter = 1;
         gameHasStarted = false;
 
+        // Restart game to menu
         init();
-
     }
 
 
+    // Prepare user for upcoming randomizer mode and initiate it
     public void randomizerAlert() {
-        if (randomizerTime && randomizerAlertCounter <= 110) {
+        if (randomizerAlertTime && randomizerAlertCounter <= 110) {
             if (randomizerAlertCounter == 110) {
+
+                // Reset randomizer alert
                 field.deleteRandomizerAlert();
                 randomizerAlertCounter = 0;
-                //randomizerTime = false;
-            } else if (randomizerAlertCounter > 100) {
+                randomizerAlertTime = false;
+                randomizerTime = true;
+
+                // Prepare randomizer
+                field.clearField();
+                field.drawRandomizer();
+                lives.showLivesRemaining();
+                score.showScore();
+                codeCadet.getPicture().draw();
+
+            } else if ((randomizerAlertCounter / 10) % 2 == 0) {
                 field.drawRandomizerAlert();
-            } else if (randomizerAlertCounter > 90){
+            } else if ((randomizerAlertCounter / 10) % 2 != 0) {
                 field.deleteRandomizerAlert();
-            } else if (randomizerAlertCounter > 80) {
-                field.drawRandomizerAlert();
-            } else if (randomizerAlertCounter > 70) {
-                field.deleteRandomizerAlert();
-            } else if (randomizerAlertCounter > 60) {
-                field.drawRandomizerAlert();
-            } else if (randomizerAlertCounter > 50) {
-                field.deleteRandomizerAlert();
-            } else if (randomizerAlertCounter > 40){
-                field.drawRandomizerAlert();
-            } else if (randomizerAlertCounter > 30) {
-                field.deleteRandomizerAlert();
-            } else if (randomizerAlertCounter > 20) {
-                field.drawRandomizerAlert();
-            } else if (randomizerAlertCounter > 10) {
-                field.deleteRandomizerAlert();
-            } else if (randomizerAlertCounter >= 0) {
-                field.drawRandomizerAlert();
             }
+
             randomizerAlertCounter++;
         }
     }
 
+    // Check if randomizer should be over and finish it
     public void randomizer() {
-        field.drawRandomizerAlert();
-        field.drawRandomizerAlert();
-        field.drawRandomizerAlert();
 
+        randomizerCounter++;
+
+        // After 250 animation cycles, revert to standard game mode
+        if (randomizerCounter > 250) {
+            field.clearField();
+            field.drawGame();
+            lives.showLivesRemaining();
+            score.showScore();
+            codeCadet.getPicture().draw();
+            randomizerCounter = 0;
+            randomizerTime = false;
+        }
     }
 
 }

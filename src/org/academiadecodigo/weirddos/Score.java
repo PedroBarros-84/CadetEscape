@@ -5,7 +5,9 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Score {
 
     private int score;
-    private Picture[] scoreArray;
+    private final Picture[] scoreArray;
+    private final int SCORE_INCREMENT = 25;
+
 
     // Constructor
     public Score() {
@@ -17,9 +19,9 @@ public class Score {
         }
     }
 
+
     // Getters & Setters
-    public int getScore() { return score; }
-    public void upScore() { score += 10; }
+    public void upScore() { score += SCORE_INCREMENT; }
     public void resetScore() { score = 0; resetScoreDisplay(); }
 
 
@@ -36,11 +38,6 @@ public class Score {
         }
     }
 
-    public void hideScore() {
-        for (Picture picture : scoreArray) {
-            picture.delete();
-        }
-    }
 
     public void updateScore() {
         String scoreToString = score + "";

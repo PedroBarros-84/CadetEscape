@@ -55,16 +55,13 @@ public class Controller implements KeyboardHandler{
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
-            try { if (!game.isPaused() && !game.getRandomizerTime()) { codeCadet.moveRight(); }
-                  if (!game.isPaused() && game.getRandomizerTime()) { codeCadet.moveLeft(); } }
-            catch(InterruptedException e) {
-                e.printStackTrace(); }
+            if (!game.isPaused() && !game.getRandomizerTime()) { codeCadet.moveRight(); }
+            if (!game.isPaused() &&  game.getRandomizerTime()) { codeCadet.moveLeft();  }
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
-            try { if (!game.isPaused() && !game.getRandomizerTime()) { codeCadet.moveLeft(); }
-                  if (!game.isPaused() && game.getRandomizerTime()) { codeCadet.moveRight(); } }
-            catch(InterruptedException e) { e.printStackTrace(); }
+            if (!game.isPaused() && !game.getRandomizerTime()) { codeCadet.moveLeft();  }
+            if (!game.isPaused() &&  game.getRandomizerTime()) { codeCadet.moveRight(); }
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
@@ -72,7 +69,7 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-            game.setRandomizerTime();  // <<<<--------------------------------------------
+            
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {
@@ -80,8 +77,7 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_Q) {
-            game.setQuit();
-            lives.setStillHaveLives(false);
+            System.exit(0);
         }
 
     }

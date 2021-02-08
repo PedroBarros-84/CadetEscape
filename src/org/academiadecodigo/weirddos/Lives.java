@@ -4,7 +4,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Lives {
 
-    private Picture[] lives;
+    private final Picture[] lives;
     private int numOfLives;
     private boolean stillHaveLives;
 
@@ -25,11 +25,10 @@ public class Lives {
 
     // Getters & Setters
     public boolean stillHaveLives() { return stillHaveLives; }
-    public void setStillHaveLives(Boolean bool) { stillHaveLives = bool; }
     public void resetNumOfLives() { numOfLives = 5; stillHaveLives = true; };
 
 
-    public void showPostIts() {
+    public void showAllPostIts() {
 
         for (Picture l : lives) {
             l.draw();
@@ -37,16 +36,19 @@ public class Lives {
 
     }
 
-    public void hidePostIts() {
 
-        for (Picture l : lives) {
-            l.delete();
+    public void showLivesRemaining() {
+
+        for (int i = 0; i < numOfLives; i++) {
+            lives[i].draw();
         }
 
     }
 
 
     public void looseLife() {
+
+        //game.setRandomizerAlertTime();
 
         if (numOfLives == 1) {
             stillHaveLives = false;
