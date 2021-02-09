@@ -14,16 +14,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class AudioSample {
 
     // Properties
-    Clip sample;
-    Long currentFrame;
-    AudioInputStream audioInputStream;
-    String filePath;
+    private Clip sample;
+    private AudioInputStream audioInputStream;
+    private Boolean isLoop;
 
 
     // Constructor
-    public AudioSample(String filePath) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public AudioSample(String filePath, Boolean loop) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
 
-        this.filePath = filePath;
+        this.isLoop = loop;
 
         // create AudioInputStream object
         audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
@@ -34,51 +33,27 @@ public class AudioSample {
         // open audioInputStream to the clip
         sample.open(audioInputStream);
 
-        sample.loop(Clip.LOOP_CONTINUOUSLY);
     }
-
 
     public void play() {
         sample.start();
+        if (isLoop) {
+            sample.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
-
 
     public void pause() {
-        currentFrame = sample.getMicrosecondPosition();
         sample.stop();
     }
 
-
-    public void resume() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        sample.close();
-        resetAudioStream();
-        sample.setMicrosecondPosition(currentFrame);
+    public void resume() {
         play();
     }
 
-
-    public void restart() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+    public void stop()  {
         sample.stop();
-        sample.close();
-        resetAudioStream();
-        currentFrame = 0L;
-        sample.setMicrosecondPosition(0);
-        play();
-    }
-
-
-    public void stop() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        sample.stop();
-        sample.close();
-        resetAudioStream();
-        currentFrame = 0L;
         sample.setMicrosecondPosition(0);
     }
 
 
-    public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
-        sample.open(audioInputStream);
-        //sample.loop(Clip.LOOP_CONTINUOUSLY);
-    }
 }

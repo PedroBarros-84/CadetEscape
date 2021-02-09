@@ -2,21 +2,36 @@ package org.academiadecodigo.weirddos;
 
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class CollisionDetector {
 
     private final Summarizer[] summarizersArray;
     private final CodeCadet codeCadet;
-    private AudioSample hit;
+    private final AudioSample summarizerHitAudioFX;
+    private int swooshIterator;
+    private AudioSample[] swooshArray;
     private final int TOTAL_SUMMARIZERS = 10;
     private final int FLOOR_LEVEL = 615 - 73; // Background height minus status bar height
 
 
     // Constructor
-    public CollisionDetector(CodeCadet codeCadet) {
+    public CollisionDetector(CodeCadet codeCadet) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
         summarizersArray = new Summarizer[TOTAL_SUMMARIZERS];
         for (int i = 0; i < summarizersArray.length; i++) {
             summarizersArray[i] = new Summarizer(5);
         }
+
+        swooshArray = new AudioSample[4];
+        swooshArray[0] = new AudioSample("resources/swoosh1.wav", false);
+        swooshArray[1] = new AudioSample("resources/swoosh2.wav", false);
+        swooshArray[2] = new AudioSample("resources/swoosh3.wav", false);
+
+        swooshIterator = 0;
+        summarizerHitAudioFX = new AudioSample("resources/summarizerHit.wav", false);
         this.codeCadet = codeCadet;
 
     }
@@ -28,10 +43,18 @@ public class CollisionDetector {
 
             if (checkForCollision(s)) {
 
+                if (codeCadet.getLives() > 1) {
+                    summarizerHitAudioFX.stop();
+                    summarizerHitAudioFX.play();
+                }
                 s.resetPosition();
                 codeCadet.looseLife();
 
             } else if (s.getY() + s.getHeight() >= FLOOR_LEVEL) {
+
+                swooshIterator = swooshIterator < 2 ? swooshIterator + 1 : 0;
+                swooshArray[swooshIterator].stop();
+                swooshArray[swooshIterator].play();
 
                 s.resetPosition();
                 score.upScore();
@@ -49,17 +72,17 @@ public class CollisionDetector {
 
     public boolean checkForCollision(Summarizer s) {
 
-        // Define
+        // Define cadet head area
         int cadetTopHead = codeCadet.getPicture().getY();
         int cadetHeadRightSide = codeCadet.getPicture().getX() + 46;
         int cadetHeadLeftSide = codeCadet.getPicture().getX() + 23;
 
-        //
+        // Define cadet torso area
         int cadetTopShoulder = codeCadet.getPicture().getY() + 33;
         int cadetShoulderRightSide = codeCadet.getPicture().getX() + codeCadet.getPicture().getWidth();
         int cadetShoulderLeftSide = codeCadet.getPicture().getX();
 
-        //
+        // Define cadet leg area
         int cadetTopWaist = codeCadet.getPicture().getY() + 103;
         int cadetWaistRightSide = codeCadet.getPicture().getX() + 53;
         int cadetWaistLeftSide = codeCadet.getPicture().getX() + 16;

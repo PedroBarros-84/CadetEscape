@@ -21,12 +21,11 @@ public class CodeCadet {
     public Picture getPicture()    { return picture; }
     public void    looseLife()     { lives.looseLife(); }
     public void    resetPosition() { picture.translate(350 - picture.getX(), 0); }
+    public int     getLives()      { return lives.getLives(); }
 
 
     // Cadet move STEP px at a time, has margin limit of 3px from border
-    public void moveRight() {
-        picture.translate(picture.getMaxX() + STEP <= 787 ? STEP : 787 - picture.getMaxX(), 0);
-    }
+    public void moveRight() { picture.translate(picture.getMaxX() + STEP <= 787 ? STEP : 787 - picture.getMaxX(), 0); }
 
 
     // Cadet move STEP px at a time, has margin limit of 3px from border

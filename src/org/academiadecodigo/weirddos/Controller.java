@@ -69,7 +69,7 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-
+            game.setRandomizer();
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {
