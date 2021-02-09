@@ -35,19 +35,23 @@ public class AudioSample {
 
     }
 
-    public void play() {
-        sample.start();
-        if (isLoop) {
-            sample.loop(Clip.LOOP_CONTINUOUSLY);
+    public void play(Boolean soundON) {
+
+        if (soundON) {
+            sample.start();
+            if (isLoop) {
+                sample.loop(Clip.LOOP_CONTINUOUSLY);
+            }
         }
+
     }
 
     public void pause() {
         sample.stop();
     }
 
-    public void resume() {
-        play();
+    public void resume(Boolean soundON) {
+        play(soundON);
     }
 
     public void stop()  {

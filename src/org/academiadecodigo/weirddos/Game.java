@@ -12,19 +12,19 @@ public class Game {
     private final CollisionDetector summarizers;
     private final Field field;
     private final Lives lives;
-    private final AudioSample gameBackGroundMusic;
+    private final AudioSample menuBackgroundMusic;
+    private final AudioSample gameBackgroundMusic;
     private final AudioSample randomizerAlarm;
     private final AudioSample randomizerBackgroundMusic;
     private final AudioSample gameOverAudio1;
     private final AudioSample gameOverAudio2;
-    private final AudioSample transitionSoundFX1;
-    private final AudioSample transitionSoundFX2;
-    private final AudioSample transitionSoundFX3;
+    private final AudioSample transitionSoundFX;
 
     private volatile boolean gameHasStarted;
     private boolean gameIsPaused;
     private boolean randomizerAlertMode;
     private boolean randomizerMode;
+    private boolean soundON;
     private int randomizerAlertCycleCounter;
     private int randomizerCycleCounter;
     private int delay;
@@ -39,18 +39,18 @@ public class Game {
         field = new Field();
         field.drawField();
         score = new Score();
-        summarizers = new CollisionDetector(codeCadet);
+        summarizers = new CollisionDetector(this, codeCadet);
         controller = new Controller(codeCadet, this, lives);
         controller.init();
 
-        gameBackGroundMusic = new AudioSample("resources/JohnWilliams_BattleOfTheResistance.wav", true);
+        menuBackgroundMusic = new AudioSample("resources/MacQuayle_FuckSociety.wav", true);
+        gameBackgroundMusic = new AudioSample("resources/JohnWilliams_BattleOfTheResistance.wav", true);
         randomizerAlarm = new AudioSample("resources/randomizerAlert.wav", false);
         randomizerBackgroundMusic = new AudioSample("resources/randomizerMusic.wav", false);
         gameOverAudio1 = new AudioSample("resources/gameOver1.wav", false);
         gameOverAudio2 = new AudioSample("resources/gameOver2.wav", false);
-        transitionSoundFX1 = new AudioSample("resources/transition1.wav", false);
-        transitionSoundFX2 = new AudioSample("resources/transition2.wav", false);
-        transitionSoundFX3 = new AudioSample("resources/transition3.wav", false);
+        transitionSoundFX = new AudioSample("resources/transitionFX.wav", false);
+        soundON = true;
 
         delay = 50;
         gameCycleCounter = 1;
@@ -69,8 +69,10 @@ public class Game {
     public void    setStart()          { gameHasStarted = true;        }
     public void    setPause()          { gameIsPaused = !gameIsPaused; }
     public boolean getRandomizerMode() { return randomizerMode;        }
+    public void    toggleSound()       { soundON = !soundON;           }
+    public boolean getSoundON()        { return soundON;               }
+    public boolean getHasStarted()     { return gameHasStarted;        }
 
-    public void setRandomizer() { randomizerAlertMode = true; }
 
 
     // Prompts main menu
@@ -79,15 +81,14 @@ public class Game {
         // Print main menu
         field.drawMenu();
 
-        // Start background music
-        gameBackGroundMusic.play();
-
-        // Wait for user to press SPACE key
+        // Wait for user to press SPACE key and play music until then
         while(!gameHasStarted) {
-            Thread.sleep(250);
+            Thread.sleep(100);
+            menuBackgroundMusic.play(soundON);
         }
 
         // Begin game
+        menuBackgroundMusic.stop();
         start();
 
     }
@@ -97,8 +98,11 @@ public class Game {
     public void start() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         // Transition audio FX
-        transitionSoundFX2.stop();
-        transitionSoundFX2.play();
+        transitionSoundFX.stop();
+        transitionSoundFX.play(soundON);
+
+        // Start game music
+        gameBackgroundMusic.play(soundON);
 
         // Print all game components on screen
         field.drawGame();
@@ -108,10 +112,17 @@ public class Game {
         summarizers.resetAllSummarizers();
 
         do {
+
             // Keep game paused if necessary
             while (gameIsPaused) {
                 Thread.sleep(100);
+                gameBackgroundMusic.pause();
+                randomizerAlarm.pause();
+                randomizerBackgroundMusic.pause();
             }
+
+            // Keep music playing after pause
+            if (!randomizerMode) { gameBackgroundMusic.play(soundON); }
 
             // Create delay for animation
             Thread.sleep(delay);
@@ -122,28 +133,25 @@ public class Game {
             // Every 200 cycles, summarizers rain faster
             if (gameCycleCounter % 200 == 0 && delay > 25) { delay--; }
 
-            // Create 0.1% chance for randomizer during standard game mode
+            // Create 0.15% chance for randomizer during standard game mode
             if (!randomizerAlertMode && !randomizerMode) {
                 double chance = Math.random() * 100;
-                if (chance < 0.2) { randomizerAlertMode = true; }
+                if (chance < 0.15) { randomizerAlertMode = true; }
             }
 
             // Prompt blinking alert before randomizer
             if (randomizerAlertMode) {
-                randomizerAlarm.play();
+                randomizerAlarm.play(soundON);
                 randomizerAlert();
             }
 
             // Switch to randomizer mode
             if (randomizerMode) {
+                randomizerBackgroundMusic.play(soundON);
                 randomizer();
             }
 
-            System.out.println(gameCycleCounter + "   " + delay);
-
             gameCycleCounter++;
-
-            //field.getCanvasElements();
 
         } while (lives.stillHaveLives());
 
@@ -155,14 +163,14 @@ public class Game {
 
         // After game ends show game over
         field.drawGameOver();
-        gameBackGroundMusic.stop();
+        gameBackgroundMusic.stop();
         randomizerAlarm.stop();
         randomizerBackgroundMusic.stop();
         gameOverAudio1.stop();
-        gameOverAudio1.play();
+        gameOverAudio1.play(soundON);
         Thread.sleep(2000);
         gameOverAudio2.stop();
-        gameOverAudio2.play();
+        gameOverAudio2.play(soundON);
 
         // Reset the game, and go back to start menu
         codeCadet.resetPosition();
@@ -173,6 +181,8 @@ public class Game {
         delay = 50;
         gameCycleCounter = 1;
         gameHasStarted = false;
+        randomizerMode = false;
+        randomizerAlertMode = false;
 
         // Restart game to menu
         init();
@@ -201,8 +211,8 @@ public class Game {
                 codeCadet.getPicture().draw();
 
                 randomizerAlarm.stop();
-                gameBackGroundMusic.pause();
-                randomizerBackgroundMusic.play();
+                gameBackgroundMusic.pause();
+                randomizerBackgroundMusic.play(soundON);
 
             } else if ((randomizerAlertCycleCounter / 10) % 2 == 0) {
                 field.deleteRandomizerAlert();
@@ -231,10 +241,17 @@ public class Game {
             randomizerCycleCounter = 0;
             randomizerMode = false;
             randomizerBackgroundMusic.stop();
-            transitionSoundFX2.stop();
-            transitionSoundFX2.play();
-            gameBackGroundMusic.resume();
+            transitionSoundFX.stop();
+            transitionSoundFX.play(soundON);
+            gameBackgroundMusic.resume(soundON);
         }
+    }
+
+    public void soundOFF() {
+        menuBackgroundMusic.pause();
+        gameBackgroundMusic.pause();
+        randomizerAlarm.pause();
+        randomizerBackgroundMusic.pause();
     }
 
 }

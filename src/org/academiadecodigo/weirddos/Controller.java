@@ -69,11 +69,14 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-            game.setRandomizer();
+            game.toggleSound();
+            game.soundOFF();
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {
-            game.setPause();
+            if (game.getHasStarted()) {
+                game.setPause();
+            }
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_Q) {

@@ -1,37 +1,38 @@
 package org.academiadecodigo.weirddos;
 
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+
 
 public class CollisionDetector {
 
     private final Summarizer[] summarizersArray;
     private final CodeCadet codeCadet;
     private final AudioSample summarizerHitAudioFX;
+    private final Game game;
     private int swooshIterator;
     private AudioSample[] swooshArray;
-    private final int TOTAL_SUMMARIZERS = 10;
+    private final int TOTAL_SUMMARIZERS = 12;
     private final int FLOOR_LEVEL = 615 - 73; // Background height minus status bar height
 
 
     // Constructor
-    public CollisionDetector(CodeCadet codeCadet) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public CollisionDetector(Game game, CodeCadet codeCadet) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         summarizersArray = new Summarizer[TOTAL_SUMMARIZERS];
         for (int i = 0; i < summarizersArray.length; i++) {
             summarizersArray[i] = new Summarizer(5);
         }
 
-        swooshArray = new AudioSample[4];
+        swooshArray = new AudioSample[3];
         swooshArray[0] = new AudioSample("resources/swoosh1.wav", false);
         swooshArray[1] = new AudioSample("resources/swoosh2.wav", false);
         swooshArray[2] = new AudioSample("resources/swoosh3.wav", false);
 
         swooshIterator = 0;
         summarizerHitAudioFX = new AudioSample("resources/summarizerHit.wav", false);
+        this.game = game;
         this.codeCadet = codeCadet;
 
     }
@@ -45,7 +46,7 @@ public class CollisionDetector {
 
                 if (codeCadet.getLives() > 1) {
                     summarizerHitAudioFX.stop();
-                    summarizerHitAudioFX.play();
+                    summarizerHitAudioFX.play(game.getSoundON());
                 }
                 s.resetPosition();
                 codeCadet.looseLife();
@@ -54,7 +55,7 @@ public class CollisionDetector {
 
                 swooshIterator = swooshIterator < 2 ? swooshIterator + 1 : 0;
                 swooshArray[swooshIterator].stop();
-                swooshArray[swooshIterator].play();
+                swooshArray[swooshIterator].play(game.getSoundON());
 
                 s.resetPosition();
                 score.upScore();

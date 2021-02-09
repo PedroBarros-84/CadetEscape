@@ -24,9 +24,9 @@ public class Lives {
 
 
     // Getters & Setters
-    public boolean stillHaveLives() { return stillHaveLives; }
-    public void resetNumOfLives() { numOfLives = 5; stillHaveLives = true; };
-    public int getLives() { return numOfLives; }
+    public boolean stillHaveLives()  { return stillHaveLives; }
+    public void    resetNumOfLives() { numOfLives = 5; stillHaveLives = true; };
+    public int     getLives()        { return numOfLives; }
 
 
     public void showAllPostIts() {

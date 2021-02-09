@@ -26,21 +26,18 @@ public class Field {
 
     public void drawField() {
         field.draw();
-        getCanvasElements();
     }
 
     public void drawMenu() {
         game.delete();
         gameOver.delete();
         menu.draw();
-        getCanvasElements();
     }
 
     public void drawGame() {
         menu.delete();
         randomizer.delete();
         game.draw();
-        getCanvasElements();
     }
 
     public void drawRandomizerAlert() {
