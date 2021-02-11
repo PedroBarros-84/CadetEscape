@@ -1,4 +1,4 @@
-package org.academiadecodigo.weirddos;
+package org.academiadecodigo.weirddos.Audio;
 
 
 import java.io.File;
@@ -34,7 +34,7 @@ public class AudioSample {
 
     }
 
-    public void play(Boolean soundON) {
+    public void play(boolean soundON) {
 
         if (soundON) {
             sample.start();

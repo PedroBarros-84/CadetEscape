@@ -13,21 +13,21 @@ public class Score {
     public Score() {
         score = 0;
         scoreArray = new Picture[6];
-        scoreArray[0] = new Picture(20, 560,"resources/nums/0.png");
+        scoreArray[0] = new Picture(20, 560,"resources/image/nums/0.png");
         for (int i = 1; i < scoreArray.length; i++) {
-            scoreArray[i] = new Picture(scoreArray[i-1].getX() + scoreArray[i-1].getWidth() + 10, 560,"resources/nums/0.png");
+            scoreArray[i] = new Picture(scoreArray[i-1].getX() + scoreArray[i-1].getWidth() + 10, 560,"resources/image/nums/0.png");
         }
     }
 
 
     // Getters & Setters
-    public void upScore()    { score += SCORE_INCREMENT;       }
+    public void upScore()    { score += SCORE_INCREMENT; }
     public void resetScore() { score = 0; resetScoreDisplay(); }
 
 
     public void resetScoreDisplay() {
         for (int i = 0; i < scoreArray.length; i++) {
-            scoreArray[i] = new Picture(scoreArray[i].getX(), scoreArray[i].getY(), "resources/nums/0.png");
+            scoreArray[i] = new Picture(scoreArray[i].getX(), scoreArray[i].getY(), "resources/image/nums/0.png");
         }
     }
 
@@ -51,34 +51,34 @@ public class Score {
 
             switch (scoreToString.charAt(i)) {
                 case '0':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/0.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/0.png");
                     break;
                 case '1':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/1.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/1.png");
                     break;
                 case '2':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/2.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/2.png");
                     break;
                 case '3':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/3.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/3.png");
                     break;
                 case '4':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/4.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/4.png");
                     break;
                 case '5':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/5.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/5.png");
                     break;
                 case '6':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/6.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/6.png");
                     break;
                 case '7':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/7.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/7.png");
                     break;
                 case '8':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/8.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/8.png");
                     break;
                 case '9':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/nums/9.png");
+                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/9.png");
             }
         }
     }

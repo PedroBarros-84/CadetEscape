@@ -12,7 +12,7 @@ public class CodeCadet {
 
     // Constructor
     public CodeCadet(Lives lives) {
-        picture = new Picture(350, 340, "resources/codeCadet.png");
+        picture = new Picture(350, 340, "resources/image/codeCadet.png");
         this.lives = lives;
     }
 

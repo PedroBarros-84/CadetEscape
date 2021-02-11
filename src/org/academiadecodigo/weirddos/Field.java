@@ -15,27 +15,26 @@ public class Field {
 
     // Constructor
     public Field() {
-        field = new Picture(0,0, "resources/field.png");
-        menu = new Picture(0,0,"resources/cadetEscapeBackgroundMenu.png");
-        game = new Picture(0,0, "resources/cadetEscapeBackgroundGame.png");
-        randomizerAlert = new Picture(0,0,"resources/randomizerAlert.png");
-        randomizer = new Picture(0,0,"resources/cadetEscapeBackgroundRandomizer.png");
-        gameOver = new Picture(0,0,"resources/cadetEscapeBackgroundGameOver.png");
+        field = new Picture(0,0, "resources/image/field.png");
+        menu = new Picture(0,0,"resources/image/menuBackground.png");
+        game = new Picture(0,0, "resources/image/gameBackground.png");
+        randomizerAlert = new Picture(0,0,"resources/image/randomizerAlert.png");
+        randomizer = new Picture(0,0,"resources/image/randomizerBackground.png");
+        gameOver = new Picture(0,0,"resources/image/gameOverBackground.png");
     }
 
     public void drawField() {
+        clearField();
         field.draw();
     }
 
     public void drawMenu() {
-        game.delete();
-        gameOver.delete();
+        clearField();
         menu.draw();
     }
 
     public void drawGame() {
-        menu.delete();
-        randomizer.delete();
+        clearField();
         game.draw();
     }
 
@@ -48,14 +47,13 @@ public class Field {
     }
 
     public void drawRandomizer() {
-        game.delete();
+        clearField();
         randomizer.draw();
-        getCanvasElements();
     }
 
     public void drawGameOver() {
+        clearField();
         gameOver.draw();
-        getCanvasElements();
     }
 
 
@@ -64,7 +62,6 @@ public class Field {
         for (int i = 1; i < shapes.length; i++) {
             shapes[i].delete();
         }
-        getCanvasElements();
     }
 
 

@@ -1,5 +1,9 @@
 package org.academiadecodigo.weirddos;
 
+import org.academiadecodigo.weirddos.Audio.AudioLibrary;
+import org.academiadecodigo.weirddos.Audio.AudioSample;
+import org.academiadecodigo.weirddos.Audio.Sample;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
@@ -9,32 +13,22 @@ public class CollisionDetector {
 
     private final Summarizer[] summarizersArray;
     private final CodeCadet codeCadet;
-    private final AudioSample summarizerHitAudioFX;
-    private final Game game;
-    private int swooshIterator;
-    private AudioSample[] swooshArray;
+    private final AudioLibrary audioLibrary;
+
     private final int TOTAL_SUMMARIZERS = 12;
     private final int FLOOR_LEVEL = 615 - 73; // Background height minus status bar height
 
 
     // Constructor
-    public CollisionDetector(Game game, CodeCadet codeCadet) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public CollisionDetector(Game game, CodeCadet codeCadet, AudioLibrary audioLibrary) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         summarizersArray = new Summarizer[TOTAL_SUMMARIZERS];
         for (int i = 0; i < summarizersArray.length; i++) {
             summarizersArray[i] = new Summarizer(5);
         }
 
-        swooshArray = new AudioSample[3];
-        swooshArray[0] = new AudioSample("resources/swoosh1.wav", false);
-        swooshArray[1] = new AudioSample("resources/swoosh2.wav", false);
-        swooshArray[2] = new AudioSample("resources/swoosh3.wav", false);
-
-        swooshIterator = 0;
-        summarizerHitAudioFX = new AudioSample("resources/summarizerHit.wav", false);
-        this.game = game;
         this.codeCadet = codeCadet;
-
+        this.audioLibrary = audioLibrary;
     }
 
 
@@ -44,19 +38,15 @@ public class CollisionDetector {
 
             if (checkForCollision(s)) {
 
-                if (codeCadet.getLives() > 1) {
-                    summarizerHitAudioFX.stop();
-                    summarizerHitAudioFX.play(game.getSoundON());
+                if (codeCadet.getLives() > 0) {
+                    audioLibrary.replay(Sample.SUMMARIZER_HIT);
                 }
                 s.resetPosition();
                 codeCadet.looseLife();
 
             } else if (s.getY() + s.getHeight() >= FLOOR_LEVEL) {
 
-                swooshIterator = swooshIterator < 2 ? swooshIterator + 1 : 0;
-                swooshArray[swooshIterator].stop();
-                swooshArray[swooshIterator].play(game.getSoundON());
-
+                audioLibrary.swoosh();
                 s.resetPosition();
                 score.upScore();
                 score.updateScore();

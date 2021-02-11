@@ -7,7 +7,6 @@ public class Controller implements KeyboardHandler{
     private Keyboard keyboard;
     private CodeCadet codeCadet;
     private Game game;
-    private Lives lives;
 
 
     // Constructor
@@ -15,7 +14,7 @@ public class Controller implements KeyboardHandler{
         keyboard = new Keyboard(this);
         this.codeCadet = codeCadet;
         this.game = game;
-        this.lives = lives;
+        init();
     }
 
 
@@ -70,7 +69,7 @@ public class Controller implements KeyboardHandler{
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
             game.toggleSound();
-            game.soundOFF();
+            game.setSoundOFF();
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {
