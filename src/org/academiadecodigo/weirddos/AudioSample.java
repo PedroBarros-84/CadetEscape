@@ -14,9 +14,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class AudioSample {
 
     // Properties
-    private Clip sample;
-    private AudioInputStream audioInputStream;
-    private Boolean isLoop;
+    private final Clip sample;
+    private final Boolean isLoop;
 
 
     // Constructor
@@ -25,7 +24,7 @@ public class AudioSample {
         this.isLoop = loop;
 
         // create AudioInputStream object
-        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
         // create clip reference
         sample = AudioSystem.getClip();
@@ -48,10 +47,6 @@ public class AudioSample {
 
     public void pause() {
         sample.stop();
-    }
-
-    public void resume(Boolean soundON) {
-        play(soundON);
     }
 
     public void stop()  {

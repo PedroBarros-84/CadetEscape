@@ -20,7 +20,7 @@ public class Game {
     private final AudioSample gameOverAudio2;
     private final AudioSample transitionSoundFX;
 
-    private volatile boolean gameHasStarted;
+    private boolean gameHasStarted;
     private boolean gameIsPaused;
     private boolean randomizerAlertMode;
     private boolean randomizerMode;
@@ -133,10 +133,10 @@ public class Game {
             // Every 200 cycles, summarizers rain faster
             if (gameCycleCounter % 200 == 0 && delay > 25) { delay--; }
 
-            // Create 0.15% chance for randomizer during standard game mode
+            // Create 0.2% chance for randomizer during standard game mode
             if (!randomizerAlertMode && !randomizerMode) {
                 double chance = Math.random() * 100;
-                if (chance < 0.15) { randomizerAlertMode = true; }
+                if (chance < 0.2) { randomizerAlertMode = true; }
             }
 
             // Prompt blinking alert before randomizer
@@ -166,6 +166,7 @@ public class Game {
         gameBackgroundMusic.stop();
         randomizerAlarm.stop();
         randomizerBackgroundMusic.stop();
+        menuBackgroundMusic.stop();
         gameOverAudio1.stop();
         gameOverAudio1.play(soundON);
         Thread.sleep(2000);
@@ -231,7 +232,7 @@ public class Game {
         randomizerCycleCounter++;
 
         // After 300 animation cycles, revert to standard game mode
-        // 250 cycles limit equates from 15 seconds to 7.5 seconds
+        // 300 cycles limit equates from 15 seconds to 7.5 seconds
         if (randomizerCycleCounter > 300) {
             field.clearField();
             field.drawGame();
@@ -243,7 +244,7 @@ public class Game {
             randomizerBackgroundMusic.stop();
             transitionSoundFX.stop();
             transitionSoundFX.play(soundON);
-            gameBackgroundMusic.resume(soundON);
+            gameBackgroundMusic.play(soundON);
         }
     }
 

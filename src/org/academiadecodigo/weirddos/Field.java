@@ -13,7 +13,6 @@ public class Field {
     private final Picture gameOver;
 
 
-
     // Constructor
     public Field() {
         field = new Picture(0,0, "resources/field.png");
@@ -21,7 +20,7 @@ public class Field {
         game = new Picture(0,0, "resources/cadetEscapeBackgroundGame.png");
         randomizerAlert = new Picture(0,0,"resources/randomizerAlert.png");
         randomizer = new Picture(0,0,"resources/cadetEscapeBackgroundRandomizer.png");
-        gameOver = new Picture(0,0,"resources/gameOver.png");
+        gameOver = new Picture(0,0,"resources/cadetEscapeBackgroundGameOver.png");
     }
 
     public void drawField() {

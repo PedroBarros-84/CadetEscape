@@ -21,10 +21,7 @@ public class Score {
 
 
     // Getters & Setters
-    public void upScore() {
-        score += SCORE_INCREMENT;
-        Main.highScore += SCORE_INCREMENT;
-    }
+    public void upScore()    { score += SCORE_INCREMENT;       }
     public void resetScore() { score = 0; resetScoreDisplay(); }
 
 

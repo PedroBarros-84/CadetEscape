@@ -13,9 +13,9 @@ public class Lives {
     public Lives() {
 
         lives = new Picture[5];
-        lives[0] = new Picture(790 - 63, 560, "resources/heart.png");
+        lives[0] = new Picture(790 - 63, 560, "resources/lives.png");
         for (int i = 1; i < lives.length; i++) {
-            lives[i] = new Picture(lives[i-1].getX() - lives[i-1].getWidth() - 10, 560, "resources/heart.png");
+            lives[i] = new Picture(lives[i-1].getX() - lives[i-1].getWidth() - 10, 560, "resources/lives.png");
         }
 
         numOfLives = 5;
@@ -48,8 +48,6 @@ public class Lives {
 
 
     public void looseLife() {
-
-        //game.setRandomizerAlertTime();
 
         if (numOfLives == 1) {
             stillHaveLives = false;
