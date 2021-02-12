@@ -142,14 +142,15 @@ public class AudioLibrary {
         gameBackgroundMusic.play(soundON);
     }
 
-    public void endOfGame() throws InterruptedException {
+    public void endOfGame() {
         gameBackgroundMusic.stop();
         randomizerAlarm.stop();
         randomizerBackgroundMusic.stop();
         menuBackgroundMusic.stop();
         gameOverTransition.stop();
         gameOverTransition.play(soundON);
-        Thread.sleep(2000);
+        try { Thread.sleep(2000); }
+        catch (InterruptedException e) { e.printStackTrace(); }
         gameOverOhOh.stop();
         gameOverOhOh.play(soundON);
     }

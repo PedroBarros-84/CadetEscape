@@ -15,7 +15,7 @@ public class Game {
     private final CollisionDetector summarizers;
     private final Field field;
     private final Lives lives;
-    private final AudioLibrary audioLibrary;
+    private AudioLibrary audioLibrary = null;
 
     private boolean gameHasStarted;
     private boolean gameIsPaused;
@@ -28,15 +28,16 @@ public class Game {
 
 
     // Constructor
-    public Game() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public Game() {
 
         lives = new Lives();
         codeCadet = new CodeCadet(lives);
         field = new Field();
         field.drawField();
         score = new Score();
-        audioLibrary = new AudioLibrary();
-        summarizers = new CollisionDetector(this, codeCadet, audioLibrary);
+        try { audioLibrary = new AudioLibrary(); }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) { e.printStackTrace(); }
+        summarizers = new CollisionDetector(codeCadet, audioLibrary);
         controller = new Controller(codeCadet, this, lives);
 
         delay = 50;
@@ -63,7 +64,7 @@ public class Game {
 
 
     // Prompts main menu
-    public void init() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void init() throws InterruptedException {
 
         // Print main menu
         field.drawMenu();
@@ -82,7 +83,7 @@ public class Game {
 
 
     // Start game
-    public void start() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void start() throws InterruptedException {
 
         // Transition audio FX
         audioLibrary.replay(Sample.GAME_MODE_TRANSITION);
@@ -139,7 +140,7 @@ public class Game {
     }
 
 
-    public void gameOver() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void gameOver() throws InterruptedException {
 
         // After game ends show game over
         field.drawGameOver();

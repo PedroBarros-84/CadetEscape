@@ -2,28 +2,41 @@
 
     <!-- Comment -->
     <target name="init">
+        <property name="project.name" value="CadetEscape"/>
         <property name="src.dir" value="src"/>
         <property name="main.class" value="org.academiadecodigo.weirddos.Main"/>
+        <property name="build.dir" value="build"/>
+        <property name="classes.dir" value="${build.dir}/classes"/>
+        <property name="resources.dir" value="resources"/>
+        <property name="lib.dir" value="libs"/>
+        <path id="classpath">
+            <fileset dir="${lib.dir}"/>
+        </path>
     </target>
 
-    <target name="prepare" description="Creates the build/classes directories" depends="init">
-        <mkdir dir="build/classes"/>
+    <target name="prepare" depends="init" description="Creates the build/classes directories">
+        <mkdir dir="${classes.dir}"/>
     </target>
 
     <target name="compile" depends="prepare" description="Compiles the source code">
-        <javac srcdir="${src.dir}" destdir="build/classes"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}">
+            <classpath refid="classpath"/>
+        </javac>
     </target>
 
     <target name="jarfile" depends="compile" description="Creates the jar file">
-        <jar destfile="build/CadetEscape.jar" basedir="build/classes">
+        <jar destfile="${build.dir}/${project.name}.jar" basedir="build/classes">
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path" value="${lib.dir}"/>
             </manifest>
+            <zipgroupfileset dir="${lib.dir}"/>
+            <fileset dir="${resources.dir}"/>
         </jar>
     </target>
 
-    <target name="clean" description="Deletes the build folder">
-        <delete dir="build"/>
+    <target name="clean" depends="init" description="Deletes the build folder">
+        <delete dir="${build.dir}"/>
     </target>
 
 </project>

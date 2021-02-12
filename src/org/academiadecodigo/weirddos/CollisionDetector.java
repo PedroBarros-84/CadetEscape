@@ -1,12 +1,8 @@
 package org.academiadecodigo.weirddos;
 
 import org.academiadecodigo.weirddos.Audio.AudioLibrary;
-import org.academiadecodigo.weirddos.Audio.AudioSample;
 import org.academiadecodigo.weirddos.Audio.Sample;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
 
 
 public class CollisionDetector {
@@ -20,7 +16,7 @@ public class CollisionDetector {
 
 
     // Constructor
-    public CollisionDetector(Game game, CodeCadet codeCadet, AudioLibrary audioLibrary) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public CollisionDetector(CodeCadet codeCadet, AudioLibrary audioLibrary) {
 
         summarizersArray = new Summarizer[TOTAL_SUMMARIZERS];
         for (int i = 0; i < summarizersArray.length; i++) {
