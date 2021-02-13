@@ -20,7 +20,7 @@ public class AudioSample {
 
         this.isLoop = loop;
 
-        // Option 1 - Doesn't work in .jar (only if file exists outside in same parent directory
+        // Option 1 - Doesn't work in .jar (only if file exists outside in same parent directory)
         //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
         // Option 2 - Works in jar

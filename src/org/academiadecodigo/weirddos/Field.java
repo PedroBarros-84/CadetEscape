@@ -20,7 +20,7 @@ public class Field {
         game = new Picture(0,0, "/image/gameBackground.png");
         randomizerAlert = new Picture(0,0, "/image/randomizerAlert.png");
         randomizer = new Picture(0,0, "/image/randomizerBackground.png");
-        gameOver = new Picture(0,0, "/image/gameOverBackground2.png");
+        gameOver = new Picture(0,0, "/image/gameOverBackground.png");
     }
 
     public void drawField() {
