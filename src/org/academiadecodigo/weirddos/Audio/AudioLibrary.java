@@ -19,18 +19,18 @@ public class AudioLibrary {
     private boolean soundON;
 
     public AudioLibrary() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        menuBackgroundMusic = new AudioSample("resources/audio/MacQuayle_FuckSociety.wav", true);
-        gameBackgroundMusic = new AudioSample("resources/audio/JohnWilliams_BattleOfTheResistance.wav", true);
-        randomizerAlarm = new AudioSample("resources/audio/randomizerAlert.wav", false);
-        randomizerBackgroundMusic = new AudioSample("resources/audio/randomizerMusic.wav", false);
-        gameOverTransition = new AudioSample("resources/audio/gameOverTransition.wav", false);
-        gameOverOhOh = new AudioSample("resources/audio/gameOverOhOh.wav", false);
-        transitionSoundFX = new AudioSample("resources/audio/transitionFX.wav", false);
-        summarizerHitFX = new AudioSample("resources/audio/summarizerHitFX.wav", false);
+        menuBackgroundMusic = new AudioSample("/audio/MacQuayle_FuckSociety.wav", true);
+        gameBackgroundMusic = new AudioSample("/audio/JohnWilliams_BattleOfTheResistance.wav", true);
+        randomizerAlarm = new AudioSample("/audio/randomizerAlert.wav", false);
+        randomizerBackgroundMusic = new AudioSample("/audio/randomizerMusic.wav", false);
+        gameOverTransition = new AudioSample("/audio/gameOverTransition.wav", false);
+        gameOverOhOh = new AudioSample("/audio/gameOverOhOh.wav", false);
+        transitionSoundFX = new AudioSample("/audio/transitionFX.wav", false);
+        summarizerHitFX = new AudioSample("/audio/summarizerHitFX.wav", false);
         swooshArray = new AudioSample[3];
-        swooshArray[0] = new AudioSample("resources/audio/swooshFX_1.wav", false);
-        swooshArray[1] = new AudioSample("resources/audio/swooshFX_2.wav", false);
-        swooshArray[2] = new AudioSample("resources/audio/swooshFX_3.wav", false);
+        swooshArray[0] = new AudioSample("/audio/swooshFX_1.wav", false);
+        swooshArray[1] = new AudioSample("/audio/swooshFX_2.wav", false);
+        swooshArray[2] = new AudioSample("/audio/swooshFX_3.wav", false);
         swooshIterator = 0;
         soundON = true;
     }

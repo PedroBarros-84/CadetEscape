@@ -68,8 +68,8 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
-            game.toggleSound();
-            game.setSoundOFF();
+            //game.toggleSound();
+            //game.setSoundOFF();
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {

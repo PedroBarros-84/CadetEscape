@@ -15,7 +15,7 @@ public class Game {
     private final CollisionDetector summarizers;
     private final Field field;
     private final Lives lives;
-    private AudioLibrary audioLibrary = null;
+    private AudioLibrary audioLibrary;
 
     private boolean gameHasStarted;
     private boolean gameIsPaused;

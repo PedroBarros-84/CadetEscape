@@ -10,7 +10,7 @@ public class Summarizer {
 
     // Constructor
     public Summarizer(int speed) {
-        summarizer = new Picture((int)(Math.random() * (790 - 60)), ((int)(Math.random() * (-1000)) - 55), "resources/image/summarizer.png");
+        summarizer = new Picture((int)(Math.random() * (790 - 60)), ((int)(Math.random() * (-1000)) - 55), "/image/summarizer.png");
         this.speed = speed;
     }
 

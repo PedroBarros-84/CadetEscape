@@ -26,7 +26,7 @@ public class Score {
     public void populateScoreDisplayDigits(int xCoordinate) {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 10; j++) {
-                scoreDisplayDigits[i][j] = new Picture(xCoordinate, Y_COORDINATE, "resources/image/nums/" + j + ".png");
+                scoreDisplayDigits[i][j] = new Picture(xCoordinate, Y_COORDINATE, "/image/nums/" + j + ".png");
             }
             xCoordinate = scoreDisplayDigits[i][0].getMaxX() + X_INTERVAL;
         }
@@ -63,5 +63,21 @@ public class Score {
         }
     }
 
+
+    /*public void showScoreGameOver() {
+        String scoreToString = score + "";
+        Picture[] scoreGameOver = new Picture[6];
+        int x = 50;
+        int y = 300;
+        for (int i = scoreToString.length() - 1, j = display.length - 1; i >= 0; i--, j--) {
+            int a = Character.getNumericValue(scoreToString.charAt(i));
+            scoreGameOver[j] = new Picture;
+            showScore();
+        }
+    }*/
+
+    /*public void hideScoreGameOver() {
+
+    }*/
 
 }

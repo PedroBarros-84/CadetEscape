@@ -1,20 +1,17 @@
 package org.academiadecodigo.weirddos.Audio;
 
-
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 
 
 public class AudioSample {
 
     // Properties
-    private final Clip sample;
+    private Clip sample;
     private final Boolean isLoop;
 
 
@@ -23,8 +20,16 @@ public class AudioSample {
 
         this.isLoop = loop;
 
-        // create AudioInputStream object
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+        // Option 1 - Doesn't work in .jar (only if file exists outside in same parent directory
+        //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+
+        // Option 2 - Works in jar
+        //InputStream audio = getClass().getResourceAsStream(filePath);
+        //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(audio));
+
+        // Option 3 - Works in jar
+        URL audio = getClass().getResource(filePath);
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audio);
 
         // create clip reference
         sample = AudioSystem.getClip();

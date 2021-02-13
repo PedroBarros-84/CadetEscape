@@ -15,12 +15,12 @@ public class Field {
 
     // Constructor
     public Field() {
-        field = new Picture(0,0, "resources/image/field.png");
-        menu = new Picture(0,0,"resources/image/menuBackground.png");
-        game = new Picture(0,0, "resources/image/gameBackground.png");
-        randomizerAlert = new Picture(0,0,"resources/image/randomizerAlert.png");
-        randomizer = new Picture(0,0,"resources/image/randomizerBackground.png");
-        gameOver = new Picture(0,0,"resources/image/gameOverBackground.png");
+        field = new Picture(0,0, "/image/field.png");
+        menu = new Picture(0,0, "/image/menuBackground.png");
+        game = new Picture(0,0, "/image/gameBackground.png");
+        randomizerAlert = new Picture(0,0, "/image/randomizerAlert.png");
+        randomizer = new Picture(0,0, "/image/randomizerBackground.png");
+        gameOver = new Picture(0,0, "/image/gameOverBackground2.png");
     }
 
     public void drawField() {
