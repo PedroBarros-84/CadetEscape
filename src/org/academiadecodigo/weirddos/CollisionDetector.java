@@ -4,7 +4,6 @@ import org.academiadecodigo.weirddos.Audio.AudioLibrary;
 import org.academiadecodigo.weirddos.Audio.Sample;
 
 
-
 public class CollisionDetector {
 
     private final Summarizer[] summarizersArray;

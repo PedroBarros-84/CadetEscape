@@ -5,17 +5,30 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Score {
 
     private int score;
-    private final Picture[] scoreArray;
+    private final Picture[][] scoreDisplayDigits;
+    private final Picture[] display;
     private final int SCORE_INCREMENT = 25;
+    private final int Y_COORDINATE = 560; // All score numbers will appear at status bar height
+    private final int X_INTERVAL = 10;
 
 
     // Constructor
     public Score() {
         score = 0;
-        scoreArray = new Picture[6];
-        scoreArray[0] = new Picture(20, 560,"resources/image/nums/0.png");
-        for (int i = 1; i < scoreArray.length; i++) {
-            scoreArray[i] = new Picture(scoreArray[i-1].getX() + scoreArray[i-1].getWidth() + 10, 560,"resources/image/nums/0.png");
+        scoreDisplayDigits = new Picture[6][10]; // 6 place values with 10 digits each
+        display = new Picture[6]; // actual display that holds current score
+        int xCoordinateStart = 20;
+        populateScoreDisplayDigits(xCoordinateStart);
+        resetScoreDisplay();
+    }
+
+
+    public void populateScoreDisplayDigits(int xCoordinate) {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 10; j++) {
+                scoreDisplayDigits[i][j] = new Picture(xCoordinate, Y_COORDINATE, "resources/image/nums/" + j + ".png");
+            }
+            xCoordinate = scoreDisplayDigits[i][0].getMaxX() + X_INTERVAL;
         }
     }
 
@@ -26,14 +39,14 @@ public class Score {
 
 
     public void resetScoreDisplay() {
-        for (int i = 0; i < scoreArray.length; i++) {
-            scoreArray[i] = new Picture(scoreArray[i].getX(), scoreArray[i].getY(), "resources/image/nums/0.png");
+        for (int i = 0; i < display.length; i++) {
+            display[i] = scoreDisplayDigits[i][0];
         }
     }
 
 
     public void showScore() {
-        for (Picture picture : scoreArray) {
+        for (Picture picture : display) {
             picture.draw();
         }
     }
@@ -41,45 +54,12 @@ public class Score {
 
     public void updateScore() {
         String scoreToString = score + "";
-        for (int i = scoreToString.length() - 1, j = scoreArray.length - 1; i >= 0; i--, j--) {
 
-            int previousX = scoreArray[j].getX();
-            int previousY = scoreArray[j].getY();
-
-            scoreArray[j].delete();
-            scoreArray[j] = null;
-
-            switch (scoreToString.charAt(i)) {
-                case '0':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/0.png");
-                    break;
-                case '1':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/1.png");
-                    break;
-                case '2':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/2.png");
-                    break;
-                case '3':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/3.png");
-                    break;
-                case '4':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/4.png");
-                    break;
-                case '5':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/5.png");
-                    break;
-                case '6':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/6.png");
-                    break;
-                case '7':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/7.png");
-                    break;
-                case '8':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/8.png");
-                    break;
-                case '9':
-                    scoreArray[j] = new Picture(previousX, previousY, "resources/image/nums/9.png");
-            }
+        for (int i = scoreToString.length() - 1, j = display.length - 1; i >= 0; i--, j--) {
+            display[j].delete();
+            int a = Character.getNumericValue(scoreToString.charAt(i));
+            display[j] = scoreDisplayDigits[j][a];
+            showScore();
         }
     }
 
