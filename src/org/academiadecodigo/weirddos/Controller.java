@@ -17,7 +17,6 @@ public class Controller implements KeyboardHandler{
         init();
     }
 
-
     public void init() {
         KeyboardEvent startGame = new KeyboardEvent();
         startGame.setKey(KeyboardEvent.KEY_SPACE);
@@ -50,7 +49,6 @@ public class Controller implements KeyboardHandler{
         keyboard.addEventListener(quitGame);
     }
 
-
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
@@ -65,6 +63,7 @@ public class Controller implements KeyboardHandler{
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
             game.setStart();
+            game.setGameIsOver();
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_S) {
@@ -73,7 +72,7 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_P) {
-            if (game.getHasStarted()) {
+            if (game.getGameHasStarted()) {
                 game.setPause();
             }
         }
@@ -83,8 +82,6 @@ public class Controller implements KeyboardHandler{
         }
 
     }
-
-
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {

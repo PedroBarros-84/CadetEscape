@@ -26,7 +26,6 @@ public class CollisionDetector {
         this.audioLibrary = audioLibrary;
     }
 
-
     // Method checks if any summarizer hit the ground, if so, increases score
     public void rainAll(Score score) {
         for (Summarizer s : summarizersArray) {
@@ -55,7 +54,6 @@ public class CollisionDetector {
         }
     }
 
-
     public boolean checkForCollision(Summarizer s) {
 
         // Define cadet head area
@@ -73,21 +71,21 @@ public class CollisionDetector {
         int cadetWaistRightSide = codeCadet.getPicture().getX() + 53;
         int cadetWaistLeftSide = codeCadet.getPicture().getX() + 16;
 
-        // First area (Head)
+        // Check collision of summarizers 3 vertices with cadet head
         if ((s.leftVertex_Y() > cadetTopHead && s.leftVertex_Y() < cadetTopShoulder && s.leftVertex_X() > cadetHeadLeftSide && s.leftVertex_X() < cadetHeadRightSide) ||
                 (s.rightVertex_Y() > cadetTopHead && s.rightVertex_Y() < cadetTopShoulder && s.rightVertex_X() > cadetHeadLeftSide && s.rightVertex_X() < cadetHeadRightSide) ||
                 (s.bottomVertex_Y() > cadetTopHead && s.bottomVertex_Y() < cadetTopShoulder && s.bottomVertex_X() > cadetHeadLeftSide && s.bottomVertex_X() < cadetHeadRightSide)){
             return true;
         }
 
-        // Second area (Torso)
+        // Check collision of summarizers 3 vertices with cadet torso
         else if ((s.leftVertex_Y() > cadetTopShoulder && s.leftVertex_Y() < cadetTopWaist && s.leftVertex_X() > cadetShoulderLeftSide && s.leftVertex_X() < cadetShoulderRightSide) ||
                 (s.rightVertex_Y() > cadetTopShoulder &&  s.rightVertex_Y() < cadetTopWaist && s.rightVertex_X() > cadetShoulderLeftSide && s.rightVertex_X() < cadetShoulderRightSide) ||
                 (s.bottomVertex_Y() > cadetTopShoulder &&  s.bottomVertex_Y() < cadetTopWaist && s.bottomVertex_X() > cadetShoulderLeftSide && s.bottomVertex_X() < cadetShoulderRightSide)) {
             return true;
         }
 
-        // Third area (Legs)
+        // Check collision of summarizers 3 vertices with cadet legs
         else if ((s.leftVertex_Y() > cadetTopWaist && s.leftVertex_X() > cadetWaistLeftSide && s.leftVertex_X() < cadetWaistRightSide) ||
                 (s.rightVertex_Y() > cadetTopWaist && s.rightVertex_X() > cadetWaistLeftSide && s.rightVertex_X() < cadetWaistRightSide) ||
                 (s.bottomVertex_Y() > cadetTopWaist && s.bottomVertex_X() > cadetWaistLeftSide && s.bottomVertex_X() < cadetWaistRightSide)){
@@ -96,7 +94,6 @@ public class CollisionDetector {
 
         return false;
     }
-
 
     public void resetAllSummarizers() {
         for (Summarizer s : summarizersArray) {

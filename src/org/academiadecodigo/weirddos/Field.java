@@ -12,7 +12,6 @@ public class Field {
     private final Picture randomizer;
     private final Picture gameOver;
 
-
     // Constructor
     public Field() {
         field = new Picture(0,0, "/image/field.png");
@@ -56,14 +55,12 @@ public class Field {
         gameOver.draw();
     }
 
-
     public void clearField() {
         Shape[] shapes = Canvas.getInstance().getShapes().toArray(new Shape[0]);
         for (int i = 1; i < shapes.length; i++) {
             shapes[i].delete();
         }
     }
-
 
     public void getCanvasElements() {
         Shape[] shapes = Canvas.getInstance().getShapes().toArray(new Shape[0]);

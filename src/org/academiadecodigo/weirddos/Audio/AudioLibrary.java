@@ -18,6 +18,7 @@ public class AudioLibrary {
     private int swooshIterator;
     private boolean soundON;
 
+
     public AudioLibrary() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         menuBackgroundMusic = new AudioSample("/audio/MacQuayle_FuckSociety.wav", true);
         gameBackgroundMusic = new AudioSample("/audio/JohnWilliams_BattleOfTheResistance.wav", true);

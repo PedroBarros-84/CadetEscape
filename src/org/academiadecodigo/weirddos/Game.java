@@ -21,6 +21,7 @@ public class Game {
     private boolean gameIsPaused;
     private boolean randomizerAlertMode;
     private boolean randomizerMode;
+    private boolean gameIsOver;
     private int randomizerAlertCycleCounter;
     private int randomizerCycleCounter;
     private int delay;
@@ -48,20 +49,19 @@ public class Game {
         randomizerAlertMode = false;
         randomizerMode = false;
         gameIsPaused = false;
+        gameIsOver = false;
 
     }
 
-
     // Getters & Setters
     public boolean isPaused()          { return gameIsPaused; }
+    public boolean getGameHasStarted() { return gameHasStarted; }
+    public boolean getRandomizerMode() { return randomizerMode; }
+    public void    setGameIsOver()     { gameIsOver = false; }
     public void    setStart()          { gameHasStarted = true; }
     public void    setPause()          { gameIsPaused = !gameIsPaused; }
-    public boolean getRandomizerMode() { return randomizerMode; }
     public void    toggleSound()       { audioLibrary.toggleSound(); }
     public void    setSoundOFF()       { audioLibrary.setSoundOFF(); }
-    public boolean getHasStarted()     { return gameHasStarted; }
-
-
 
     // Prompts main menu
     public void init() throws InterruptedException {
@@ -80,7 +80,6 @@ public class Game {
         start();
 
     }
-
 
     // Start game
     public void start() throws InterruptedException {
@@ -139,18 +138,23 @@ public class Game {
         gameOver();
     }
 
-
     public void gameOver() throws InterruptedException {
+
+        gameIsOver = true;
 
         // After game ends show game over
         field.drawGameOver();
+        score.showScoreGameOver();
         audioLibrary.endOfGame();
 
         // Reset the game, and go back to start menu
         codeCadet.resetPosition();
-        score.resetScore();
         lives.resetNumOfLives();
-        Thread.sleep(6000);
+        while (gameIsOver) {
+            Thread.sleep(100);
+        }
+        score.hideScoreGameOver();
+        score.resetScore();
         delay = 50;
         gameCycleCounter = 1;
         gameHasStarted = false;
@@ -160,7 +164,6 @@ public class Game {
         // Restart game to menu
         init();
     }
-
 
     // Prepare user for upcoming randomizer mode and initiate it
     public void randomizerAlert() {
@@ -197,7 +200,7 @@ public class Game {
         }
     }
 
-    // Check if randomizer should be over and finish it
+    // Check if randomizer must be over and finish it
     public void randomizer() {
 
         randomizerCycleCounter++;

@@ -37,7 +37,6 @@ public class Lives {
 
     }
 
-
     public void showLivesRemaining() {
 
         for (int i = 0; i < numOfLives; i++) {
@@ -45,7 +44,6 @@ public class Lives {
         }
 
     }
-
 
     public void looseLife() {
 
