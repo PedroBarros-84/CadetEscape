@@ -52,9 +52,13 @@ public class AudioSample {
         sample.stop();
     }
 
-    public void stop()  {
+    public void stop() {
         sample.stop();
         sample.setMicrosecondPosition(0);
+    }
+
+    public void close() {
+        sample.close();
     }
 
 

@@ -53,6 +53,7 @@ public class Game {
 
     }
 
+
     // Getters & Setters
     public boolean isPaused()          { return gameIsPaused; }
     public boolean getGameHasStarted() { return gameHasStarted; }
@@ -62,9 +63,32 @@ public class Game {
     public void    setPause()          { gameIsPaused = !gameIsPaused; }
     public void    toggleSound()       { audioLibrary.toggleSound(); }
     public void    setSoundOFF()       { audioLibrary.setSoundOFF(); }
+    public void    closeAudioStreams() { audioLibrary.closeStreams(); }
+
+
+    // Game loop
+    public void init() {
+
+        try {
+
+            while (true) {
+
+                mainMenu();
+
+                mainGame();
+
+                gameOver();
+            }
+
+        } catch (InterruptedException e) {
+
+        }
+
+    }
+
 
     // Prompts main menu
-    public void init() throws InterruptedException {
+    public void mainMenu() throws InterruptedException {
 
         // Print main menu
         field.drawMenu();
@@ -77,12 +101,12 @@ public class Game {
 
         // Begin game
         audioLibrary.stop(Sample.MENU_MUSIC);
-        start();
 
     }
 
+
     // Start game
-    public void start() throws InterruptedException {
+    public void mainGame() throws InterruptedException {
 
         // Transition audio FX
         audioLibrary.replay(Sample.GAME_MODE_TRANSITION);
@@ -135,8 +159,8 @@ public class Game {
 
         } while (lives.stillHaveLives());
 
-        gameOver();
     }
+
 
     public void gameOver() throws InterruptedException {
 
@@ -160,17 +184,16 @@ public class Game {
         gameHasStarted = false;
         randomizerMode = false;
         randomizerAlertMode = false;
-
-        // Restart game to menu
-        init();
+        
     }
+
 
     // Prepare user for upcoming randomizer mode and initiate it
     public void randomizerAlert() {
 
         audioLibrary.play(Sample.RANDOMIZER_ALARM);
 
-        // 110 cycle limit equates to 5.5 seconds to 2.75 seconds alert time
+        // 110 cycle limit equates from 5.5 seconds to 2.75 seconds alert time
         if (randomizerAlertMode && randomizerAlertCycleCounter <= 110) {
 
             if (randomizerAlertCycleCounter == 110) {
@@ -199,6 +222,7 @@ public class Game {
             randomizerAlertCycleCounter++;
         }
     }
+
 
     // Check if randomizer must be over and finish it
     public void randomizer() {

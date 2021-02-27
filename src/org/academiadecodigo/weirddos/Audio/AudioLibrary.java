@@ -169,5 +169,17 @@ public class AudioLibrary {
         randomizerBackgroundMusic.pause();
     }
 
-
+    public void closeStreams() {
+        menuBackgroundMusic.close();
+        gameBackgroundMusic.close();
+        randomizerAlarm.close();
+        randomizerBackgroundMusic.close();
+        gameOverTransition.close();
+        gameOverOhOh.close();
+        transitionSoundFX.close();
+        summarizerHitFX.close();
+        swooshArray[0].close();
+        swooshArray[1].close();
+        swooshArray[2].close();
+    }
 }

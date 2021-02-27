@@ -4,7 +4,7 @@
     <target name="init">
         <property name="project.name" value="CadetEscape"/>
         <property name="src.dir" value="src"/>
-        <property name="main.class" value="org.academiadecodigo.weirddos.Main"/>
+        <property name="main.class" value="org.academiadecodigo.weirddos.CadetEscape"/>
         <property name="build.dir" value="build"/>
         <property name="classes.dir" value="${build.dir}/classes"/>
         <property name="resources.dir" value="resources"/>

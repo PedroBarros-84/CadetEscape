@@ -47,6 +47,7 @@ public class Controller implements KeyboardHandler{
         quitGame.setKey(KeyboardEvent.KEY_Q);
         quitGame.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(quitGame);
+
     }
 
     @Override
@@ -78,6 +79,7 @@ public class Controller implements KeyboardHandler{
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_Q) {
+            game.closeAudioStreams();
             System.exit(0);
         }
 
