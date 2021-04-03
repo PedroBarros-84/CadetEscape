@@ -1,4 +1,4 @@
-# Cadet Escape
+# Cadet Escape Game
 
 ### // Project Description  
 Our first group project which took part in our 4th week at <Academia de Código_> #55 Bootcamp @ Lisboa.
